@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 	def index
 		@users = User.all
+		# @q = User.ransack(params[:q])
+		# @users = @q.result(distinct: true)
 	end
 
 	def show
@@ -22,12 +24,6 @@ class UsersController < ApplicationController
 		user = user.find(params[:id])
 		user.delete_flag = true
 		redirect_to users_path
-	end
-
-	def search
-		@q = User.ransack(params[:q])
-		@users = @q.result(distinct: true)
-		render :index
 	end
 
 	private

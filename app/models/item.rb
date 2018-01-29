@@ -5,12 +5,12 @@ class Item < ApplicationRecord
 	has_many :item_orders
 	has_many :disks
 
-	validates :admin_id, presence: true, numericality: true
+	attachment :jacket_image
+
 	validates :item_name, presence: true, length: { maximum: 256 }
 	validates :artist_id, presence: true, numericality: true
 	validates :stock, presence: true, numericality: { less_than: 32768 }
 	validates :genre_id, presence: true, numericality: true
 	validates :price, presence: true, numericality: true
-	validates :jacket_image_id, presence: true, numericality: true
 	validates :label, presence: true, length: { maximum: 256 }
 end

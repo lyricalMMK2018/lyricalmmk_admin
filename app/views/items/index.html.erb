@@ -1,0 +1,38 @@
+<div>
+	<p>商品一覧</p>
+	<table style="width: 90%;">
+		<tr>
+			<th>商品名</th>
+			<th>アーティスト</th>
+			<th>単価(円)</th>
+			<th>在庫数</th>
+			<th>商品一覧ページ</th>
+			<th></th>
+		</tr>
+		<% @items.each do |item| %>
+			<tr>
+				<th><%= item.item_name %></th>
+				<th><%= item.artist.artist_name %></th>
+				<th>
+					<%= item.price %>
+				</th>
+				<th>
+					<% if item.stock == 0 %>
+						<span style="color: red;">在庫切れ</span>
+					<% else %>
+						 <%= item.stock %>
+					<% end %>
+				</th>
+				<th>
+					<% if item.delete_flag != true %>
+						<span style="color: green;">表示</span>
+					<% else %>
+						<span style="color: red;">非表示</span>
+					<% end %>
+				</th>
+				<th><%= link_to "編集", edit_item_path(item) %></th>
+			</tr>
+		<% end %>
+	</table>
+	<p><%= link_to "商品新規登録へ", new_item_path %></p>
+</div>

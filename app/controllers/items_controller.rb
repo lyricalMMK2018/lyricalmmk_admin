@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
 	def index
 		@items = Item.all
+		# @q = Item.ransack(params[:q])
+		# @items = @q.result(distinct: true)
 	end
 
 	def new
@@ -15,9 +17,13 @@ class ItemsController < ApplicationController
 	end
 
 	def create
-		item = Item.new(item_params)
-		item.save
-		redirect_to item_edit_path(:id)
+		@item = Item.new(item_params)
+		@item.admin_id = current_admin.id
+		if @item.save
+		redirect_to edit_item_path(@item)
+		else
+			render :new
+		end
 	end
 
 	def destroy
@@ -29,18 +35,12 @@ class ItemsController < ApplicationController
 
 	def update
 		item = Item.find(params[:id])
-		item.update
+		item.update(item_params)
 		redirect_to items_path
-	end
-
-	def search
-		@q = Item.ransack(params[:q])
-		@items = @q.result.(distinct: true)
-		render :index
 	end
 
 	private
 		def item_params
-			params.require(:item).permit(:admin_id, :item_name, :artist_id, :stock, :genre_id, :price, :jacket_image_id, :label, :delete_flag)
+			params.require(:item).permit(:admin_id, :item_name, :artist_id, :stock, :genre_id, :price, :jacket_image, :label, :delete_flag)
 		end
 end

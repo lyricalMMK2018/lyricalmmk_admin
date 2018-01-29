@@ -1,0 +1,17 @@
+<div>
+	<p>ジャンル一覧</p>
+	<% @genres.each do |genre| %>
+		<p>
+			ID= <%= genre.id %> name= <%= genre.genre_name %>
+			<%= link_to "削除(テスト用)", genre_path(genre), method: :delete, "data-confirm" => "テスト用の削除機能です。削除してもよろしいでしょうか？" %>
+		</p>
+	<% end %>
+</div>
+
+<div>
+	<p>ジャンル新規追加フォーム</p>
+	<%= form_for(@genre) do |f| %>
+		<p>ジャンル名 <%= f.text_field :genre_name, autofocus: true %></p>
+		<p><%= f.submit '追加' %></p>
+	<% end %>
+</div>
