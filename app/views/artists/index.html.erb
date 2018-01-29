@@ -3,7 +3,7 @@
 	<% @artists.each do |artist| %>
 		<p>
 			ID= <%= artist.id %> name= <%= artist.artist_name %>
-			<%= link_to "削除(テスト用)", artist_path(artist), method: :delete, "data-confirm" => "テスト用の削除機能です。削除してもよろしいでしょうか？" %>
+			<%= link_to "削除(テスト用)", artist_path(artist), method: :delete, data: { confirm: "テスト用削除機能です。削除してもよろしいでしょうか？" } %>
 		</p>
 	<% end %>
 </div>

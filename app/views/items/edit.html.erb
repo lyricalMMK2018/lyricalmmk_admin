@@ -1,5 +1,5 @@
 <div>
-	<p>商品情報編集フォーム</p>
+	<p>商品情報編集・曲追加フォーム</p>
 	<% if @item.errors.any? %>
 		<ul>
 			<% @item.errors.full_messages.each do |msg| %>
@@ -22,6 +22,62 @@
 			<%= link_to "アーティストを追加する", artists_path, target: "_blank" %>
 		</p>
 		<p>管理者ID <%= @item.admin_id %></p>
-		<p><%= f.submit '編集する' %></p>
+		<p>ユーザー用商品一覧から隠す <%= f.check_box :delete_flag %></p>
+		<p><%= f.submit '商品情報を編集する' %></p>
+	<% end %>
+</div>
+<div>
+	<% @disks.each do |disk| %>
+		<div>
+			<%= form_for(disk) do |f| %>
+				<p>
+					ディスク
+					<%= f.number_field :disk_number, autofocus: true %>
+					<%= f.text_field :disk_name, autofocus: true %>
+					<%= f.hidden_field :item_id %>
+					<%= f.submit "編集" %>
+					<%= link_to "削除", disk_path(disk), method: :delete, data: { confirm: "ディスクを削除すると、その曲のデータも削除されます。続行しますか？" } %>
+				</p>
+			<% end %>
+			<table style="border: 1px solid black;">
+				<tr>
+					<th>トラック番号</th>
+					<th>曲名</th>
+					<th>再生時間(分・秒)</th>
+					<th>アーティスト</th>
+				</tr>
+				<% disk.songs.each do |song| %>
+					<%= form_for(song) do |f| %>
+						<tr>
+							<th><%= f.number_field :track_number, autofocus: true %></th>
+							<th><%= f.text_field :song_name, autofocus: true %></th>
+							<th><%= f.time_field :song_length, autofocus: true %></th>
+							<th><%= f.number_field :artist_id, autofocus: true %></th>
+							<th><%= f.hidden_field :disk_id %></th>
+							<th><%= f.submit "編集" %></th>
+							<th><%= link_to "削除", song_path(song), method: :delete, data: { confirm: "この曲を削除します。よろしいでしょうか？" } %></th>
+						</tr>
+					<% end %>
+				<% end %>
+				<%= form_for(@song) do |f| %>
+					<tr>
+						<th><%= f.number_field :track_number, autofocus: true, placeholder: "トラック番号" %></th>
+						<th><%= f.text_field :song_name, autofocus: true, placeholder: "曲名" %></th>
+						<th><%= f.time_field :song_length, autofocus: true, placeholder: "再生時間" %></th>
+						<th><%= f.number_field :artist_id, autofocus: true, placeholder: "アーティスト" %></th>
+						<th><%= f.hidden_field :disk_id, value: disk.id, readonly: true %></th>
+						<th><%= f.submit "トラック追加" %></th>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+	<% end %>
+	<%= form_for(@disk) do |f| %>
+		<p>
+			<%= f.number_field :disk_number, autofucus: true, placeholder: "ディスク番号" %>
+			 <%= f.text_field :disk_name, autofocus: true, placeholder: "ディスクタイトル" %>
+			 <%= f.hidden_field :item_id, value: @item.id, readonly: true %>
+			 <%= f.submit "新規ディスク" %>
+		</p>
 	<% end %>
 </div>

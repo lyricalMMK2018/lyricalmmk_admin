@@ -110,12 +110,12 @@ ActiveRecord::Schema.define(version: 20180126152543) do
     t.string "song_name", null: false
     t.time "song_length", null: false
     t.integer "track_number", null: false
-    t.integer "disc_id", null: false
+    t.integer "disk_id", null: false
     t.integer "artist_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["artist_id"], name: "index_songs_on_artist_id"
-    t.index ["disc_id"], name: "index_songs_on_disc_id"
+    t.index ["disk_id"], name: "index_songs_on_disk_id"
     t.index ["song_name"], name: "index_songs_on_song_name"
   end
 

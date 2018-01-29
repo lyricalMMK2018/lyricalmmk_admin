@@ -1,20 +1,21 @@
 class SongsController < ApplicationController
 	def create
-		@song = Song.new(song_params)
-		@song.save
-		rennder :edit
+		song = Song.new(song_params)
+		song.save
+		redirect_to edit_item_path(song.disk.item.id)
 	end
 
 	def update
-		@song = Song.find(params[:id])
-		@song.update
-		render :edit
+		song = Song.find(params[:id])
+		song.update
+		redirect_to edit_item_path(song.disk.item.id)
+
 	end
 
 	def destroy
-		@song = Song.find(params[:id])
-		@song.destroy
-		render :edit
+		song = Song.find(params[:id])
+		song.destroy
+		redirect_to edit_item_path(song.disk.item.id)
 	end
 
 	private

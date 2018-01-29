@@ -1,19 +1,20 @@
 class DisksController < ApplicationController
 	def create
 		@disk = Disk.new(disk_params)
-		render :edit
+		@disk.save
+		redirect_to edit_item_path(@disk.item.id)
 	end
 
 	def update
 		@disk = Disk.find(params[:id])
 		@disk.update
-		render :edit
+		redirect_to edit_item_path(@disk.item.id)
 	end
 
 	def destroy
 		@disk = Disk.find(params[:id])
 		@disk.destroy
-		render :edit
+		redirect_to edit_item_path(@disk.item.id)
 	end
 
 	private

@@ -3,7 +3,7 @@
 	<% @genres.each do |genre| %>
 		<p>
 			ID= <%= genre.id %> name= <%= genre.genre_name %>
-			<%= link_to "削除(テスト用)", genre_path(genre), method: :delete, "data-confirm" => "テスト用の削除機能です。削除してもよろしいでしょうか？" %>
+			<%= link_to "削除(テスト用)", genre_path(genre), method: :delete, data: { confirm: "テスト用削除機能です。削除してもよろしいでしょうか？" } %>
 		</p>
 	<% end %>
 </div>
