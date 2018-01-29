@@ -1,6 +1,6 @@
 class GenresController < ApplicationController
 	def index
-		@genres = Genre.all
+		@genres = Genre.all.page(params[:page]).reverse_order
 		# @q = Genre.ransack(params[:q])
 		# @genres = @q.result(distinct: true)
 		@genre = Genre.new
@@ -12,9 +12,19 @@ class GenresController < ApplicationController
 		redirect_to genres_path
 	end
 
+	def update
+		genre = Genre.find(params[:id])
+		genre.update(genre_params)
+		redirect_to genres_path
+	end
+
 	def destroy
 		genre = Genre.find(params[:id])
-		genre.destroy
+		if genre.items.any?
+			flash[:alert] = "選択されたジャンルは、商品に登録されているため削除できません。"
+		else
+			genre.destroy
+		end
 		redirect_to genres_path
 	end
 

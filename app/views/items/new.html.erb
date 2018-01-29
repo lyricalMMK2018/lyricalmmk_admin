@@ -1,5 +1,5 @@
 <div>
-	<p>商品新規追加フォーム</p>
+	<h4>商品新規追加フォーム</h4>
 	<% if @item.errors.any? %>
 		<ul>
 			<% @item.errors.full_messages.each do |msg| %>
@@ -11,17 +11,18 @@
 		<p>商品名 <%= f.text_field :item_name, autofocus: true %></p>
 		<p>レーベル <%= f.text_field :label, autofocus: true %></p>
 		<p>
-			ジャンル <%= f.number_field :genre_id, autofocus: true %>
-			<%= link_to "ジャンルを追加する", genres_path, target: "_blank" %>
+			ジャンル <%= f.select :genre_id, Genre.all.map{ |t| [t.genre_name, t.id]} %>
+			<%= link_to "ジャンル追加メニュー", genres_path, target: "_blank" %>
 		</p>
 		<p>単価 <%= f.number_field :price, autofocus: true %>円</p>
 		<p>在庫数 <%= f.number_field :stock, autofocus: true %></p>
 		<p>ジャケット画像 <%= f.attachment_field :jacket_image %></p>
 		<p>
-			アーティスト <%= f.number_field :artist_id %>
-			<%= link_to "アーティストを追加する", artists_path, target: "_blank" %>
+			アーティスト選択
+			<%= f.select :artist_id, Artist.all.map{ |t| [t.artist_name, t.id]} %>
+			<%= link_to "アーティスト追加メニュー", artists_path, target: "_blank" %>
 		</p>
-		<p>管理者ID <%= current_admin.id %></p>
+		<p>管理者番号 <%= current_admin.id %></p>
 		<p><%= f.submit '作成して曲の追加に移る' %></p>
 	<% end %>
 </div>

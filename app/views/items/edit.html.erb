@@ -1,5 +1,5 @@
 <div>
-	<p>商品情報編集・曲追加フォーム</p>
+	<h4>商品情報編集</h4>
 	<% if @item.errors.any? %>
 		<ul>
 			<% @item.errors.full_messages.each do |msg| %>
@@ -8,35 +8,39 @@
 		</ul>
 	<% end %>
 	<%= form_for(@item) do |f| %>
+		<p>商品ID <%= @item.id %>
 		<p>商品名 <%= f.text_field :item_name, autofocus: true %></p>
 		<p>レーベル <%= f.text_field :label, autofocus: true %></p>
 		<p>
-			ジャンル <%= f.number_field :genre_id, autofocus: true %>
-			<%= link_to "ジャンルを追加する", genres_path, target: "_blank" %>
+			ジャンル <%= f.select :genre_id, Genre.all.map{ |t| [t.genre_name, t.id]} %>
+			<%= link_to "ジャンル追加メニュー", genres_path, target: "_blank" %>
 		</p>
 		<p>単価 <%= f.number_field :price, autofocus: true %>円</p>
 		<p>在庫数 <%= f.number_field :stock, autofocus: true %></p>
 		<p>ジャケット画像 <%= f.attachment_field :jacket_image %></p>
 		<p>
-			アーティスト <%= f.number_field :artist_id %>
-			<%= link_to "アーティストを追加する", artists_path, target: "_blank" %>
+			アーティスト選択
+			<%= f.select :artist_id, Artist.all.map{ |t| [t.artist_name, t.id]} %>
+			<%= link_to "アーティスト追加メニュー", artists_path, target: "_blank" %>
 		</p>
-		<p>管理者ID <%= @item.admin_id %></p>
+		<p>管理者番号 <%= @item.admin_id %></p>
 		<p>ユーザー用商品一覧から隠す <%= f.check_box :delete_flag %></p>
 		<p><%= f.submit '商品情報を編集する' %></p>
 	<% end %>
 </div>
 <div>
-	<% @disks.each do |disk| %>
+	<h4>ディスク・曲情報追加と編集</h4>
+	<% @item.disks.each do |disk| %>
 		<div>
 			<%= form_for(disk) do |f| %>
 				<p>
-					ディスク
+					ディスク番号
 					<%= f.number_field :disk_number, autofocus: true %>
+					ディスクタイトル
 					<%= f.text_field :disk_name, autofocus: true %>
 					<%= f.hidden_field :item_id %>
 					<%= f.submit "編集" %>
-					<%= link_to "削除", disk_path(disk), method: :delete, data: { confirm: "ディスクを削除すると、その曲のデータも削除されます。続行しますか？" } %>
+					<%= link_to "削除", disk_path(disk), method: :delete, data: { confirm: "ディスクを削除すると、ディスク内の曲も削除されます。続行しますか？" } %>
 				</p>
 			<% end %>
 			<table style="border: 1px solid black;">
@@ -52,10 +56,10 @@
 							<th><%= f.number_field :track_number, autofocus: true %></th>
 							<th><%= f.text_field :song_name, autofocus: true %></th>
 							<th><%= f.time_field :song_length, autofocus: true %></th>
-							<th><%= f.number_field :artist_id, autofocus: true %></th>
+							<th><%= f.select :artist_id, Artist.all.map{ |t| [t.artist_name, t.id]} %></th>
 							<th><%= f.hidden_field :disk_id %></th>
 							<th><%= f.submit "編集" %></th>
-							<th><%= link_to "削除", song_path(song), method: :delete, data: { confirm: "この曲を削除します。よろしいでしょうか？" } %></th>
+							<th><%= link_to "削除", song_path(song), method: :delete, data: { confirm: "この曲を削除します。続行しますか？" } %></th>
 						</tr>
 					<% end %>
 				<% end %>
@@ -64,7 +68,7 @@
 						<th><%= f.number_field :track_number, autofocus: true, placeholder: "トラック番号" %></th>
 						<th><%= f.text_field :song_name, autofocus: true, placeholder: "曲名" %></th>
 						<th><%= f.time_field :song_length, autofocus: true, placeholder: "再生時間" %></th>
-						<th><%= f.number_field :artist_id, autofocus: true, placeholder: "アーティスト" %></th>
+						<th><%= f.select :artist_id, Artist.all.map{ |t| [t.artist_name, t.id]} %></th>
 						<th><%= f.hidden_field :disk_id, value: disk.id, readonly: true %></th>
 						<th><%= f.submit "トラック追加" %></th>
 					</tr>

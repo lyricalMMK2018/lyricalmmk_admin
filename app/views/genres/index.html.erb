@@ -1,17 +1,32 @@
+<% flash.each do |key, value| %>
+	<div style="color: red;">
+		<%= value %>
+	</div>
+<% end %>
 <div>
-	<p>ジャンル一覧</p>
-	<% @genres.each do |genre| %>
+	<h4>ジャンル新規追加</h4>
+	<%= form_for(@genre) do |f| %>
 		<p>
-			ID= <%= genre.id %> name= <%= genre.genre_name %>
-			<%= link_to "削除(テスト用)", genre_path(genre), method: :delete, data: { confirm: "テスト用削除機能です。削除してもよろしいでしょうか？" } %>
+			ジャンル名 <%= f.text_field :genre_name, autofocus: true %>
+			<%= f.submit '追加' %>
 		</p>
 	<% end %>
 </div>
-
 <div>
-	<p>ジャンル新規追加フォーム</p>
-	<%= form_for(@genre) do |f| %>
-		<p>ジャンル名 <%= f.text_field :genre_name, autofocus: true %></p>
-		<p><%= f.submit '追加' %></p>
-	<% end %>
+	<h4>ジャンル一覧</h4>
+	<table>
+		<tr>
+			<th>ジャンル名</th>
+		</tr>
+		<% @genres.each do |genre| %>
+			<tr>
+				<%= form_for(genre) do |f| %>
+					<th><%= f.text_field :genre_name, autofocus: true %></th>
+					<th><%= f.submit '編集' %></th>
+				<% end %>
+				<th><%= link_to "削除", genre_path(genre), method: :delete, data: { confirm: "削除します。続行しますか？" } %></th>
+			</tr>
+		<% end %>
+	</table>
+	<%= paginate @genres %>
 </div>

@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 	def index
-		@items = Item.all
+		@items = Item.order(:updated_at).page(params[:page]).reverse_order
 		# @q = Item.ransack(params[:q])
 		# @items = @q.result(distinct: true)
 	end
@@ -11,7 +11,6 @@ class ItemsController < ApplicationController
 
 	def edit
 		@item = Item.find(params[:id])
-		@disks = @item.disks
 		@disk = Disk.new
 		@song = Song.new
 	end

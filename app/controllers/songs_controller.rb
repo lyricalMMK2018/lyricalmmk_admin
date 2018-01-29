@@ -7,7 +7,7 @@ class SongsController < ApplicationController
 
 	def update
 		song = Song.find(params[:id])
-		song.update
+		song.update(song_params)
 		redirect_to edit_item_path(song.disk.item.id)
 
 	end

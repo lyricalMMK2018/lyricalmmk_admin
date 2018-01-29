@@ -9,11 +9,15 @@
   </head>
 
   <body>
-  	<header>
+  	<header style="border: 1px black solid;">
   		<% if admin_signed_in? %>
-  			管理者権限でログインしています。(管理者番号= <%= current_admin.id %>) <%= link_to "ログアウト", destroy_admin_session_path %>
+        <span style="color: green;">管理者番号 <%= current_admin.id %> でログインしています。</span>
+        <%= link_to "管理者メニュー", root_path, style: "margin-left: 1rem;" %>
+        <%= link_to "ログアウト", destroy_admin_session_path, style: "margin-left: 1rem;" %>
   		<% else %>
-  			ログインしてください。 <%= link_to "ログイン", new_admin_session_path %> <%= link_to "サインアップ", new_admin_registration_path %>
+  			<span style="color: red;">ログインしてください。</span>
+        <%= link_to "ログイン", new_admin_session_path, style: "margin-left: 1rem;" %>
+        <%= link_to "新規管理者登録", new_admin_registration_path, style: "margin-left: 1rem;" %>
   		<% end %>
   	</header>
     <%= yield %>

@@ -1,6 +1,6 @@
 class ArtistsController < ApplicationController
 	def index
-		@artists = Artist.all
+		@artists = Artist.all.page(params[:page]).reverse_order
 		# @q = Artist.ransack(params[:q])
 		# @artists = @q.result(distinct: true)
 		@artist = Artist.new
@@ -12,9 +12,19 @@ class ArtistsController < ApplicationController
 		redirect_to artists_path
 	end
 
+	def update
+		artist = Artist.find(artist_params)
+		artist.save
+		redirect_to artists_path
+	end
+
 	def destroy
 		artist = Artist.find(params[:id])
-		artist.destroy
+		if artist.items.any?
+			flash[:alert] = "選択されたアーティストは、商品に登録されているため削除できません。"
+		else
+			artist.destroy
+		end
 		redirect_to artists_path
 	end
 

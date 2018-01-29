@@ -1,7 +1,8 @@
 <div>
-	<p>商品一覧</p>
+	<h4>商品一覧<%= link_to "商品新規登録", new_item_path, style: "margin-left: 1rem;" %></h4>
 	<table style="width: 90%;">
 		<tr>
+			<th>商品ID</th>
 			<th>商品名</th>
 			<th>アーティスト</th>
 			<th>単価(円)</th>
@@ -11,6 +12,7 @@
 		</tr>
 		<% @items.each do |item| %>
 			<tr>
+				<th><%= item.id %></th>
 				<th><%= item.item_name %></th>
 				<th><%= item.artist.artist_name %></th>
 				<th>
@@ -34,5 +36,5 @@
 			</tr>
 		<% end %>
 	</table>
-	<p><%= link_to "商品新規登録へ", new_item_path %></p>
+	<%= paginate @items %>
 </div>
