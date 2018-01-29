@@ -14,8 +14,8 @@
 			ジャンル <%= f.number_field :genre_id, autofocus: true %>
 			<%= link_to "ジャンルを追加する", genres_path, target: "_blank" %>
 		</p>
-		<p>単価 <%= f.number_field :stock, autofocus: true %>円</p>
-		<p>在庫数 <%= f.number_field :price, autofocus: true %></p>
+		<p>単価 <%= f.number_field :price, autofocus: true %>円</p>
+		<p>在庫数 <%= f.number_field :stock, autofocus: true %></p>
 		<p>ジャケット画像 <%= f.attachment_field :jacket_image %></p>
 		<p>
 			アーティスト <%= f.number_field :artist_id %>
