@@ -11,16 +11,15 @@
 		<p>商品名 <%= f.text_field :item_name, autofocus: true %></p>
 		<p>レーベル <%= f.text_field :label, autofocus: true %></p>
 		<p>
-			ジャンル <%= f.select :genre_id, Genre.all.map{ |t| [t.genre_name, t.id]} %>
-			<%= link_to "ジャンル追加メニュー", genres_path, target: "_blank" %>
+			<%= link_to "ジャンル", genres_path, target: "_blank" %>
+			<%= f.select :genre_id, Genre.order(:genre_name).map{ |t| [t.genre_name, t.id]} %>
 		</p>
 		<p>単価 <%= f.number_field :price, autofocus: true %>円</p>
 		<p>在庫数 <%= f.number_field :stock, autofocus: true %></p>
 		<p>ジャケット画像 <%= f.attachment_field :jacket_image %></p>
 		<p>
-			アーティスト選択
-			<%= f.select :artist_id, Artist.all.map{ |t| [t.artist_name, t.id]} %>
-			<%= link_to "アーティスト追加メニュー", artists_path, target: "_blank" %>
+			<%= link_to "アーティスト", artists_path, target: "_blank" %>
+			<%= f.select :artist_id, Artist.order(:artist_name).map{ |t| [t.artist_name, t.id]} %>
 		</p>
 		<p>管理者番号 <%= current_admin.id %></p>
 		<p><%= f.submit '作成して曲の追加に移る' %></p>

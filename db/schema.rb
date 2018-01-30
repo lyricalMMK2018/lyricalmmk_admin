@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20180126152543) do
 
   create_table "items", force: :cascade do |t|
     t.string "item_name", null: false
-    t.string "jacket_image_id", null: false
+    t.string "jacket_image_id"
     t.string "label", null: false
     t.integer "genre_id", null: false
     t.integer "artist_id", null: false
@@ -134,9 +134,9 @@ ActiveRecord::Schema.define(version: 20180126152543) do
     t.string "lastname", null: false
     t.string "firstname_kana", null: false
     t.string "lastname_kana", null: false
-    t.string "zip_code", null: false
-    t.string "address", null: false
-    t.string "phone", null: false
+    t.string "zip_code"
+    t.string "address"
+    t.string "phone"
     t.integer "gender", null: false
     t.integer "age", null: false
     t.boolean "delete_flag"
