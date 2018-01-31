@@ -58,7 +58,7 @@
 						<tr>
 							<th><%= f.number_field :track_number, autofocus: true %></th>
 							<th><%= f.text_field :song_name, autofocus: true %></th>
-							<th><%= f.time_field :song_length, autofocus: true %></th>
+							<th><%= f.time_select :song_length, include_seconds: true, autofocus: true %></th>
 							<th><%= f.select :artist_id, Artist.all.map{ |t| [t.artist_name, t.id]} %></th>
 							<th><%= f.hidden_field :disk_id %></th>
 							<th><%= f.submit "編集" %></th>
@@ -70,7 +70,7 @@
 					<tr>
 						<th><%= f.number_field :track_number, autofocus: true, placeholder: "トラック番号" %></th>
 						<th><%= f.text_field :song_name, autofocus: true, placeholder: "曲名" %></th>
-						<th><%= f.time_field :song_length, autofocus: true, placeholder: "再生時間" %></th>
+						<th><%= f.time_select :song_length, include_seconds: true, default: {hour: '0', minute: '0', second: '0'} ,autofocus: true %></th>
 						<th><%= f.select :artist_id, Artist.all.map{ |t| [t.artist_name, t.id]} %></th>
 						<th><%= f.hidden_field :disk_id, value: disk.id, readonly: true %></th>
 						<th><%= f.submit "トラック追加" %></th>
