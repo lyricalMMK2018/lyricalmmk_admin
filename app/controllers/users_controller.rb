@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	def index
-		@users = User.order(:updated_at)
+		@users = User.order(params[:sort]).page(params[:page])
 		# @q = User.ransack(params[:q])
 		# @users = @q.result(distinct: true)
 	end

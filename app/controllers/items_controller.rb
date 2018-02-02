@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 	def index
-		@items = Item.order(:updated_at).page(params[:page]).reverse_order
+		@items = Item.order(params[:sort]).page(params[:page])
 		# @q = Item.ransack(params[:q])
 		# @items = @q.result(distinct: true)
 	end
@@ -40,6 +40,6 @@ class ItemsController < ApplicationController
 
 	private
 		def item_params
-			params.require(:item).permit(:admin_id, :item_name, :artist_id, :stock, :genre_id, :price, :jacket_image, :label, :delete_flag)
+			params.require(:item).permit(:admin_id, :item_name, :artist_id, :stock, :genre_id, :price, :jacket_image, :remove_jacket_image, :label, :delete_flag)
 		end
 end

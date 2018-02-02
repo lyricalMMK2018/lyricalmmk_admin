@@ -22,6 +22,7 @@
 			<%= attachment_image_tag @item, :jacket_image, :fill, 300, 300, fallback: "no_img_300.jpeg" %><br>
 			<%= f.attachment_field :jacket_image %>
 		</p>
+		<p>ジャケット画像を削除する <%= f.check_box :remove_jacket_image %></p>
 		<p>
 			<%= link_to "アーティスト", artists_path %>
 			<%= f.select :artist_id, Artist.order(:artist_name).map{ |t| [t.artist_name, t.id]} %>
@@ -50,7 +51,7 @@
 				<tr>
 					<th>トラック番号</th>
 					<th>曲名</th>
-					<th>再生時間(分・秒)</th>
+					<th>再生時間</th>
 					<th>アーティスト</th>
 				</tr>
 				<% disk.songs.order(:track_number).each do |song| %>

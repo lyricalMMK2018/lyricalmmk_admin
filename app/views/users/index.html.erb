@@ -2,12 +2,12 @@
 <div>
 	<table>
 		<tr>
-			<th>ID</th>
-			<th>苗字</th>
-			<th>名前</th>
-			<th>ミョウジ</th>
-			<th>ナマエ</th>
-			<th>アカウント状態</th>
+			<th><%= link_to "ID", sort: "id" %></th>
+			<th><%= link_to "苗字", sort: "firstname" %></th>
+			<th><%= link_to "名前", sort: "lastname" %></th>
+			<th><%= link_to "ミョウジ", sort: "firstname_kana" %></th>
+			<th><%= link_to "ナマエ", sort: "lastname_kana" %></th>
+			<th><%= link_to "アカウント状態", sort: "delete_flag" %></th>
 			<th>総取引額</th>
 		</tr>
 		<% @users.each do |user| %>

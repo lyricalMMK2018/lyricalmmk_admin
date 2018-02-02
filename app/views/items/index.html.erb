@@ -3,12 +3,12 @@
 	<table>
 		<tr>
 			<th></th>
-			<th>商品ID</th>
-			<th>商品名</th>
-			<th>アーティスト</th>
-			<th>単価(円)</th>
-			<th>在庫数</th>
-			<th>商品一覧ページ</th>
+			<th><%= link_to "商品ID", sort: "id" %></th>
+			<th><%= link_to "商品名", sort: "item_name" %></th>
+			<th><%= link_to "アーティスト", sort: "artist_id" %></th>
+			<th><%= link_to "単価(円)", sort: "price" %></th>
+			<th><%= link_to "在庫数", sort: "stock" %></th>
+			<th><%= link_to "indexに表示するか", sort: "delete_flag" %></th>
 		</tr>
 		<% @items.each do |item| %>
 			<tr>
