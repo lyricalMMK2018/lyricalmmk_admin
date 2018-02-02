@@ -4,6 +4,7 @@ class Item < ApplicationRecord
 	has_many :carts
 	has_many :item_orders
 	has_many :disks
+	has_many :songs, through: :disks
 
 	attachment :jacket_image
 

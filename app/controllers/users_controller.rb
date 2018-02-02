@@ -1,33 +1,27 @@
 class UsersController < ApplicationController
 	def index
-		@users = User.all
+		@users = User.order(:updated_at)
 		# @q = User.ransack(params[:q])
 		# @users = @q.result(distinct: true)
 	end
 
 	def show
-		@user = user.find(params[:id])
-		@orders = @user.orders
+		@user = User.find(params[:id])
+		@orders = @user.orders.reverse_order
 	end
 
 	def edit
-		@user = user.find(params[:id])
+		@user = User.find(params[:id])
 	end
 
 	def update
-		user = user.find(params[:id])
-		user.update
-		redirect_to users_path
-	end
-
-	def destroy
-		user = user.find(params[:id])
-		user.delete_flag = true
-		redirect_to users_path
+		user = User.find(params[:id])
+		user.update(user_params)
+		redirect_to user_path(user)
 	end
 
 	private
 		def user_params
-			params.require(:user).permit(:firstname, :lastname, :firstname_kana, :lastname_kana, :zip_code, :adress, :phone, :email, :password, :gender, :age, :delete_flag)
+			params.require(:user).permit(:firstname, :lastname, :firstname_kana, :lastname_kana, :zip_code, :address, :phone, :email, :password, :gender, :age, :delete_flag)
 		end
 end

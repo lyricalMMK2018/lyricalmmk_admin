@@ -1,0 +1,34 @@
+<h4>注文編集</h4>
+<p>購入者: <%= @order.user.id %>. <%= @order.user.firstname_kana %> <%= @order.user.lastname_kana %></p>
+<%= form_for(@order) do |f| %>
+	<p>配送先氏名: <%= f.text_field :firstname %> <%= f.text_field :lastname %></p>
+	<p>配送先郵便番号: <%= f.text_field :zip_code %></p>
+	<p>配送先住所: <%= f.text_area :address %></p>
+	<p>配送先電話番号: <%= f.text_field :phone %></p>
+	<p>キャンセルされた注文 <%= f.check_box :delete_flag %></p>
+	<p><%= f.submit "更新" %></p>
+<% end %>
+<p><%= link_to "削除", order_path(@order), method: :delete, data: { confirm: "この注文を完全に削除します。続行しますか？" } %></p>
+<h4>注文内訳</h4>
+<table>
+	<tr>
+		<th>商品ID</th>
+		<th>商品名</th>
+		<th>注文時の価格</th>
+		<th>注文数</th>
+		<th>ステータス</th>
+	</tr>
+	<% @order.item_orders.each do |item_order| %>
+		<%= form_for(item_order) do |f| %>
+			<tr>
+				<th><%= item_order.item.id %></th>
+				<th><%= item_order.item.item_name %></th>
+				<th><%= f.number_field :saved_price %></th>
+				<th><%= f.number_field :quantity %></th>
+				<th><%= f.select :delivery_status, ItemOrder.delivery_statuses.keys.map{|i| [i, i]} %></th>
+				<th><%= f.submit "変更" %></th>
+				<th><%= link_to "削除", item_order_path(item_order), method: :delete, data: { confirm: "商品ID #{item_order.item.id} を購入履歴から削除します。よろしいですか？" } %></th>
+			</tr>
+		<% end %>
+	<% end %>
+</table>

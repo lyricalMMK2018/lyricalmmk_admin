@@ -1,0 +1,33 @@
+<h4>ユーザー一覧</h4>
+<div>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>苗字</th>
+			<th>名前</th>
+			<th>ミョウジ</th>
+			<th>ナマエ</th>
+			<th>アカウント状態</th>
+			<th>総取引額</th>
+		</tr>
+		<% @users.each do |user| %>
+			<tr>
+				<th><%= user.id %></th>
+				<th><%= user.firstname %></th>
+				<th><%= user.lastname %></th>
+				<th><%= user.firstname_kana %></th>
+				<th><%= user.lastname_kana %></th>
+				<th>
+					<% if user.delete_flag %>
+						<span style="color: red;">無効</span>
+					<% else %>
+						<span style="color: green;">有効</span>
+					<% end %>
+				</th>
+				<th><%= total_spent(user) %></th>
+				<th><%= link_to "詳細", user_path(user) %></th>
+				<th><%= link_to "編集", edit_user_path(user) %></th>
+			</tr>
+		<% end %>
+	</table>
+</div>

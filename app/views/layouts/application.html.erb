@@ -7,7 +7,6 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
   	<header style="border: 1px black solid;">
   		<% if admin_signed_in? %>
@@ -20,6 +19,8 @@
         <%= link_to "新規管理者登録", new_admin_registration_path, style: "margin-left: 1rem;" %>
   		<% end %>
   	</header>
-    <%= yield %>
+    <div style="margin-left: 5px;">
+      <%= yield %>
+    </div>
   </body>
 </html>

@@ -1,0 +1,17 @@
+<h4>ユーザー情報編集</h4>
+<div>
+	<%= form_for(@user) do |f| %>
+		<p>苗字: <%= f.text_field :firstname %></p>
+		<p>名前: <%= f.text_field :lastname %></p>
+		<p>ミョウジ: <%= f.text_field :firstname_kana %></p>
+		<p>ナマエ: <%= f.text_field :lastname_kana %></p>
+		<p>性別: <%= f.select :gender, User.genders.keys.map{|i| [i, i]} %></p>
+		<p>年齢: <%= f.number_field :age %></p>
+		<p>郵便番号: <%= f.text_field :zip_code %></p>
+		<p>住所: <%= f.text_field :address %></p>
+		<p>電話番号: <%= f.text_field :phone %></p>
+		<p>Email: <%= f.text_field :email %></p>
+		<p>無効なアカウント: <%= f.check_box :delete_flag %></p>
+		<p><%= f.submit "送信" %></p>
+	<% end %>
+</div>

@@ -1,0 +1,74 @@
+<h4>
+	ユーザー情報
+	<% if @user.delete_flag %>
+		<span style="color: red;">無効なアカウント</span>
+	<% end %>
+	<%= link_to "編集", edit_user_path(@user), style: "margin-left: 1rem;" %>
+</h4>
+<ul>
+	<li>ユーザーID: <%= @user.id %></li>
+	<li>苗字: <%= @user.firstname %></li>
+	<li>名前: <%= @user.lastname %></li>
+	<li>ミョウジ: <%= @user.firstname_kana %></li>
+	<li>ナマエ: <%= @user.lastname_kana %></li>
+	<li>性別: <%= @user.gender %></li>
+	<li>年齢: <%= @user.age %></li>
+	<li>
+		郵便番号:
+		<% if @user.zip_code? %> <%= @user.zip_code %>
+		<% else %> 未登録
+		<% end %>
+	</li>
+	<li>住所:
+		<% if @user.address? %> <%= @user.address %>
+		<% else %> 未登録
+		<% end %>
+	</li>
+	<li>電話番号:
+		<% if @user.phone? %> <%= @user.phone %>
+		<% else %> 未登録
+		<% end %>
+	</li>
+	<li>E-mail: <%= @user.email %></li>
+	<li>総取引額: <%= total_spent(@user) %>円</li>
+</ul>
+<h4>購入履歴</h4>
+<% @orders.each do |order| %>
+	<div>
+		<ul>
+			<li>
+				注文ID: <%= order.id %>
+				<% if order.delete_flag == true %>
+					<span style="color: red; margin-left: 1rem;">キャンセルされた注文</span>
+				<% end %>
+				<%= link_to "編集", edit_order_path(order), style: "margin-left: 1rem;" %>
+			</li>
+			<li>購入日: <%= order.created_at.strftime('%Y年%-m月%d日 %p%l時%M分') %></li>
+			<li>注文小計: <%= sub_total(order) %>円</li>
+			<li>発送先氏名: <%= order.firstname %> <%= order.lastname %></li>
+			<li>発送先郵便番号 <%= order.zip_code %></li>
+			<li>発送先住所 <%= order.address %></li>
+			<li>発送先電話番号 <%= order.phone %></li>
+		</ul>
+		<table>
+			<tr>
+				<th>商品ID</th>
+				<th>商品名</th>
+				<th>単価</th>
+				<th>注文数</th>
+				<th>小計</th>
+				<th>ステータス</th>
+			</tr>
+			<% order.item_orders.each do |item_order| %>
+				<tr>
+					<th><%= item_order.item.id %></th>
+					<th><%= item_order.item.item_name %></th>
+					<th><%= item_order.saved_price %>円</th>
+					<th><%= item_order.quantity %></th>
+					<th><%= item_order.saved_price * item_order.quantity %>円</th>
+					<th><%= item_order.delivery_status %></th>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+<% end %>

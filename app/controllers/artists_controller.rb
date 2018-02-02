@@ -21,11 +21,11 @@ class ArtistsController < ApplicationController
 	def destroy
 		artist = Artist.find(params[:id])
 		if artist.items.any?
-			flash[:alert] = "選択されたアーティストは、商品に登録されているため削除できません。"
+			redirect_to artists_path, alert: "選択されたアーティストは、商品に登録されているため削除できません。"
 		else
 			artist.destroy
+			redirect_to artists_path
 		end
-		redirect_to artists_path
 	end
 
 	private

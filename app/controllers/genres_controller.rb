@@ -21,11 +21,11 @@ class GenresController < ApplicationController
 	def destroy
 		genre = Genre.find(params[:id])
 		if genre.items.any?
-			flash[:alert] = "選択されたジャンルは、商品に登録されているため削除できません。"
+			redirect_to genres_path, alert: "選択されたジャンルは、商品に登録されているため削除できません。"
 		else
 			genre.destroy
+			redirect_to genres_path
 		end
-		redirect_to genres_path
 	end
 
 	private

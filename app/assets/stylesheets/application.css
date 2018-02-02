@@ -18,3 +18,11 @@
 th {
 	font-weight: normal;
 }
+
+table tr:nth-child(odd) {
+	background: #d0d0d0;
+}
+
+ul {
+	list-style-type: none;
+}
