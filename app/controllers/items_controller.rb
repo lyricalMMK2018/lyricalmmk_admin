@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 	def index
-		@items = Item.order(params[:sort]).page(params[:page])
+		@items = Item.includes(:artist).order(params[:sort]).page(params[:page])
 		# @q = Item.ransack(params[:q])
 		# @items = @q.result(distinct: true)
 	end

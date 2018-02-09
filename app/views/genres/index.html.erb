@@ -14,19 +14,17 @@
 </div>
 <div>
 	<h4>ジャンル一覧</h4>
-	<table>
-		<tr>
-			<th>ジャンル名</th>
-		</tr>
+	<ul>
+		<li>ジャンル名</li>
 		<% @genres.each do |genre| %>
-			<tr>
-				<%= form_for(genre) do |f| %>
-					<th><%= f.text_field :genre_name, autofocus: true %></th>
-					<th><%= f.submit '編集' %></th>
-				<% end %>
-				<th><%= link_to "削除", genre_path(genre), method: :delete, data: { confirm: "削除します。続行しますか？" } %></th>
-			</tr>
+		<li>
+			<%= form_for(genre) do |f| %>
+				<%= f.text_field :genre_name, autofocus: true %>
+				<%= f.submit '編集' %>
+				<%= link_to "削除", genre_path(genre), method: :delete, data: { confirm: "削除します。続行しますか？" } %>
+			<% end %>
+		</li>
 		<% end %>
-	</table>
+	</ul>
 	<%= paginate @genres %>
 </div>

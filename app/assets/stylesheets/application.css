@@ -26,3 +26,11 @@ table tr:nth-child(odd) {
 ul {
 	list-style-type: none;
 }
+
+ul li {
+	margin: 1px 0;
+}
+
+ul li:nth-child(even) {
+	background: #d0d0d0;
+}

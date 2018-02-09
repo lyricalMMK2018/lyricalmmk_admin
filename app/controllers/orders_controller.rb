@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 	def edit
-		@order = Order.find(params[:id])
+		@order = Order.includes(item_orders: :item).find(params[:id])
 	end
 
 	def update

@@ -33,7 +33,7 @@
 	<li>総取引額: <%= total_spent(@user) %>円</li>
 </ul>
 <h4>購入履歴</h4>
-<% @orders.each do |order| %>
+<% @user.orders.each do |order| %>
 	<div>
 		<ul>
 			<li>

@@ -20,7 +20,7 @@ class ArtistsController < ApplicationController
 
 	def destroy
 		artist = Artist.find(params[:id])
-		if artist.items.any?
+		if artist.items.exists?
 			redirect_to artists_path, alert: "選択されたアーティストは、商品に登録されているため削除できません。"
 		else
 			artist.destroy

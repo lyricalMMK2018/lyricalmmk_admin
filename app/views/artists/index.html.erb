@@ -14,20 +14,19 @@
 </div>
 <div>
 	<h4>アーティスト一覧</h4>
-	<table>
-		<tr>
-			<th>アーティスト名</th>
-		</tr>
+	<ul>
+		<li>アーティスト名</li>
 		<% @artists.each do |artist| %>
-			<tr>
+			<li>
 				<%= form_for(artist) do |f| %>
-					<th><%= f.text_field :artist_name, autofocus: true %></th>
-					<th><%= f.submit '編集' %></th>
+					<%= f.text_field :artist_name, autofocus: true %>
+					<%= f.submit '編集' %>
+					<%= link_to "削除", artist_path(artist), method: :delete, data: { confirm: "削除します。続行しますか？" } %>
 				<% end %>
-				<th><%= link_to "削除", artist_path(artist), method: :delete, data: { confirm: "削除します。続行しますか？" } %></th>
-			</tr>
+			</li>
 		<% end %>
-	</table>
+	</ul>
+
 	<%= paginate @artists %>
 </div>
 

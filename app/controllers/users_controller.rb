@@ -1,13 +1,12 @@
 class UsersController < ApplicationController
 	def index
-		@users = User.order(params[:sort]).page(params[:page])
+		@users = User.includes(:orders, orders: :item_orders).order(params[:sort]).page(params[:page])
 		# @q = User.ransack(params[:q])
 		# @users = @q.result(distinct: true)
 	end
 
 	def show
-		@user = User.find(params[:id])
-		@orders = @user.orders.reverse_order
+		@user = User.includes(:orders, orders: :item_orders, orders: [item_orders: :item]).find(params[:id])
 	end
 
 	def edit
