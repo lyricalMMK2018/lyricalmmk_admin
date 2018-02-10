@@ -47,37 +47,35 @@
 					<%= link_to "削除", disk_path(disk), method: :delete, data: { confirm: "ディスクを削除すると、ディスク内の曲も削除されます。続行しますか？" } %>
 				</p>
 			<% end %>
-			<table style="border: 1px solid black;">
-				<tr>
-					<th>トラック番号</th>
-					<th>曲名</th>
-					<th>再生時間</th>
-					<th>アーティスト</th>
-				</tr>
+			<ul style="border: 1px solid black;">
 				<% disk.songs.order(:track_number).each do |song| %>
 					<%= form_for(song) do |f| %>
-						<tr>
-							<th><%= f.number_field :track_number, autofocus: true %></th>
-							<th><%= f.text_field :song_name, autofocus: true %></th>
-							<th><%= f.time_select :song_length, include_seconds: true, autofocus: true %></th>
-							<th><%= f.select :artist_id, Artist.all.map{ |t| [t.artist_name, t.id]} %></th>
-							<th><%= f.hidden_field :disk_id %></th>
-							<th><%= f.submit "編集" %></th>
-							<th><%= link_to "削除", song_path(song), method: :delete, data: { confirm: "この曲を削除します。続行しますか？" } %></th>
-						</tr>
+						<li>
+							<%= f.number_field :track_number, autofocus: true, placeholder: 'トラック番号' %>
+							<%= f.text_field :song_name, autofocus: true, placeholder: '曲名' %>
+							再生時間
+							<%= f.time_select :song_length, include_seconds: true, autofocus: true %>
+							アーティスト
+							<%= f.select :artist_id, Artist.all.map{ |t| [t.artist_name, t.id]} %>
+							<%= f.hidden_field :disk_id %>
+							<%= f.submit "編集" %>
+							<%= link_to "削除", song_path(song), method: :delete, data: { confirm: "この曲を削除します。続行しますか？" } %>
+						</li>
 					<% end %>
 				<% end %>
 				<%= form_for(@song) do |f| %>
-					<tr>
-						<th><%= f.number_field :track_number, autofocus: true, placeholder: "トラック番号" %></th>
-						<th><%= f.text_field :song_name, autofocus: true, placeholder: "曲名" %></th>
-						<th><%= f.time_select :song_length, include_seconds: true, default: {hour: '0', minute: '0', second: '0'} ,autofocus: true %></th>
-						<th><%= f.select :artist_id, Artist.all.map{ |t| [t.artist_name, t.id]} %></th>
-						<th><%= f.hidden_field :disk_id, value: disk.id, readonly: true %></th>
-						<th><%= f.submit "トラック追加" %></th>
-					</tr>
+					<li>
+						<%= f.number_field :track_number, autofocus: true, placeholder: "トラック番号" %>
+						<%= f.text_field :song_name, autofocus: true, placeholder: "曲名" %>
+						再生時間
+						<%= f.time_select :song_length, include_seconds: true, default: {hour: '0', minute: '0', second: '0'} ,autofocus: true %>
+						アーティスト
+						<%= f.select :artist_id, Artist.all.map{ |t| [t.artist_name, t.id]} %>
+						<%= f.hidden_field :disk_id, value: disk.id, readonly: true %>
+						<%= f.submit "トラック追加" %>
+					</li>
 				<% end %>
-			</table>
+			</ul>
 		</div>
 	<% end %>
 	<%= form_for(@disk) do |f| %>
